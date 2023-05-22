@@ -7,6 +7,11 @@ public class Attacker extends Soccer{
 
     @Override
     public boolean shoot(){
+        Random random = new Random();
 
+        int shoot1 = random.nextInt(10);
+        int shoot2 = random.nextInt(10);
+
+        return true;
     }
 }
