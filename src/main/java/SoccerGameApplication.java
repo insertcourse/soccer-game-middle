@@ -19,16 +19,11 @@ public class SoccerGameApplication {
 
         int count = 1;
 
+        Soccer[] soccers = new Soccer[] {attacker1, attacker2, midfielder1, midfielder2};
+
         while(bool){
-            System.out.printf("\n%d번째 슈팅결과\n", count);
-            System.out.printf("%s: ", attacker1.getName());
-            attacker1.shoot(keeper);
-            System.out.printf("\n%s: ", attacker2.getName());
-            attacker2.shoot(keeper);
-            System.out.printf("\n%s: ", midfielder1.getName());
-            midfielder1.shoot(keeper);
-            System.out.printf("\n%s: ", midfielder2.getName());
-            midfielder2.shoot(keeper);
+            System.out.printf("\n%d번째 슈팅결과", count);
+            printResult(soccers, keeper);
             count++;
             bool = check(attacker1, attacker2, midfielder1, midfielder2, matchPoint);
         }
@@ -52,7 +47,7 @@ public class SoccerGameApplication {
         return matchPoint;
     }
 
-    static boolean check(Attacker attacker1, Attacker attacker2, Midfielder midfielder1, Midfielder midfielder2, int matchPoint){
+    static boolean check(Attacker attacker1, Attacker attacker2, Midfielder midfielder1, Midfielder midfielder2 ,int matchPoint){
         if (attacker1.getScore() == matchPoint){
             System.out.printf("\n\n승리자는 %s 입니다.", attacker1.getName());
             return false;
@@ -64,11 +59,19 @@ public class SoccerGameApplication {
         if (midfielder1.getScore() == matchPoint){
             System.out.printf("\n\n승리자는 %s 입니다.", midfielder1.getName());
             return false;
-        }if (midfielder2.getScore() == matchPoint){
+        }
+        if (midfielder2.getScore() == matchPoint){
             System.out.printf("\n\n승리자는 %s 입니다.", midfielder2.getName());
             return false;
         }
         return true;
+    }
+
+    static void printResult(Soccer[] soccers, Keeper keeper){
+        for (Soccer soccer : soccers){
+            System.out.printf("\n%s: ", soccer.getName());
+            soccer.shoot(keeper);
+        }
     }
 
 }
