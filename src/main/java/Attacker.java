@@ -6,11 +6,17 @@ public class Attacker extends Soccer{
     }
 
     @Override
-    public boolean shoot(){
+    public boolean shoot(Keeper keeper){
         Random random = new Random();
 
-        int shoot1 = random.nextInt(10);
-        int shoot2 = random.nextInt(10);
+        int shoot1 = random.nextInt(11);
+        int shoot2 = random.nextInt(11);
+
+        if (keeper.block(shoot1) || keeper.block(shoot2)){
+            goal();
+        }
+
+        print(getScore());
 
         return true;
     }
