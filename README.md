@@ -113,3 +113,10 @@ chore (maintain)
 3. 기능 요구사항을 보고, 기능을 구현할 때 마크다운에 체크를 한다.
 4. 모두 구현한 후 pull request를 요청한다.
 5. 코드리뷰 후 개선한다.
+
+### 기능 구현 목록
+1. Player 추상 클래스 구현
+2. Attacker 클래스 구현
+3. Midfielder 클래스 구현
+4. Goalkeeper 클래스 구현
+5. 승자 판단 로직 구현
