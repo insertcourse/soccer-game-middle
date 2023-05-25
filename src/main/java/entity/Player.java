@@ -5,22 +5,18 @@ import vo.Winner;
 
 public class Player {
     private Name name;
+    private Integer chance = 0;
 
-    private static Integer chance = 0;
-
-    public Player(String name) {
+    public Player(String name, Integer chance) {
         this.name = new Name(name);
+        this.chance = chance;
     }
 
     public Name getName() {
         return name;
     }
 
-    public static Integer getChance() {
+    public Integer getChance() {
         return chance;
-    }
-
-    public static void setChance(Integer chance) {
-        Player.chance = chance;
     }
 }
