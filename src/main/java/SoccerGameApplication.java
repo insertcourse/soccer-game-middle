@@ -1,14 +1,8 @@
-import game.SoccerGame;
+import game.SoccerGameController;
 
 public class SoccerGameApplication {
     public static void main(String[] args) {
-        SoccerGame soccerGame = new SoccerGame();
-
-        try {
-            soccerGame.init();
-            soccerGame.start();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        SoccerGameController soccerGameController = new SoccerGameController();
+        soccerGameController.start();
     }
 }
