@@ -1,43 +1,44 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import static java.util.Arrays.*;
 
 public class SoccerGameApplication {
     static String winner = null;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String[] attackers = getPlayers(scanner,"공격수");
-        String[] midfielders = getPlayers(scanner,"미드필더");
-        String[] goalkeepers = getPlayers(scanner,"골키퍼");
+        List<String> attackers = getPlayers(scanner,"공격수");
+        List<String> midfielders = getPlayers(scanner,"미드필더");
+        List<String> goalkeepers = getPlayers(scanner,"골키퍼");
         int matchPoint = getMatchPoint(scanner);
 
-        Attacker attacker1 = new Attacker(attackers[0]);
-        Attacker attacker2 = new Attacker(attackers[1]);
-        Midfielder midfielder1 = new Midfielder(midfielders[0]);
-        Midfielder midfielder2 = new Midfielder(midfielders[1]);
-        Goalkeeper goalkeeper = new Goalkeeper(goalkeepers[0]);
+        Attacker attacker1 = new Attacker(attackers.get(0));
+        Attacker attacker2 = new Attacker(attackers.get(1));
+        Midfielder midfielder1 = new Midfielder(midfielders.get(0));
+        Midfielder midfielder2 = new Midfielder(midfielders.get(1));
+        Goalkeeper goalkeeper = new Goalkeeper(goalkeepers.get(0));
 
-        Player[] players = {attacker1,attacker2,midfielder1,midfielder2,goalkeeper};
-        shootResult(players,matchPoint);
+        shootResult(attacker1,attacker2,midfielder1,midfielder2,goalkeeper,matchPoint);
     }
 
-    public static void shootResult(Player[] players, int matchPoint) {
+    public static void shootResult(Attacker attacker1,Attacker attacker2,Midfielder midfielder1,Midfielder midfielder2,Goalkeeper goalkeeper, int matchPoint) {
         int count = 1;
-        boolean isGameOver = true;
+        boolean isPlayingGame = true;
 
-        while(isGameOver) {
+        while(isPlayingGame) {
             System.out.println(count + "번째 슈팅 결과");
-            printResult(players[0],new Goalkeeper(players[4].getName()));
-            printResult(players[1],new Goalkeeper(players[4].getName()));
-            printResult(players[2],new Goalkeeper(players[4].getName()));
-            printResult(players[3],new Goalkeeper(players[4].getName()));
+            printResult(attacker1,goalkeeper);
+            printResult(attacker2,goalkeeper);
+            printResult(midfielder1,goalkeeper);
+            printResult(midfielder2,goalkeeper);
             System.out.println();
 
-            int[] scores = {players[0].getScore(), players[1].getScore(), players[2].getScore(), players[3].getScore()};
-            isGameOver = (ContainMatchPoint(players,scores,matchPoint) == null ? true : false );
+            isPlayingGame = CheckMatchPoint(attacker1,matchPoint) &&
+                    CheckMatchPoint(attacker2,matchPoint) &&
+                    CheckMatchPoint(midfielder1,matchPoint) &&
+                    CheckMatchPoint(midfielder2,matchPoint);
             count ++;
         }
     }
@@ -48,19 +49,18 @@ public class SoccerGameApplication {
 
     }
 
-    public static String ContainMatchPoint(Player[] players,int[] scores, int matchPoint) {
-        if(Arrays.stream(scores).anyMatch(score -> score == matchPoint)) {
-            int index = Arrays.stream(scores).boxed().mapToInt(Integer::intValue).boxed().collect(Collectors.toList()).indexOf(matchPoint);
-            String winner = players[index].getName();
-            System.out.println("승리자는 " + winner + " 입니다.");
-            return winner;
+    public static boolean CheckMatchPoint(Player player, int matchPoint) {
+        if(player.getScore() == matchPoint) {
+            System.out.println("\n\n승리자는 " + player.getName() + " 입니다.");
+            return false;
         }
-        return null;
+        return true;
     }
 
-    public static String[] getPlayers(Scanner scanner,String type) {
+    public static List<String> getPlayers(Scanner scanner,String type) {
         System.out.print(type + "의 이름을 입력하세요: ");
-        return scanner.nextLine().split(", ");
+        List<String> players = Arrays.asList(scanner.nextLine().split(", "));
+        return players;
     }
 
     public static int getMatchPoint(Scanner scanner) {
