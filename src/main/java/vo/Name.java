@@ -1,7 +1,7 @@
 package vo;
 
 public class Name {
-    private String name;
+    private final String name;
 
     public Name(String name) {
         this.name = name;

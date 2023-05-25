@@ -1,7 +1,7 @@
 package vo;
 
 public class Winner {
-    private String winner;
+    private final String winner;
 
     public Winner(String winner) {
         this.winner = winner;
