@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Midfielder extends Soccer {
+public class Midfielder extends SoccerPlayer {
     Midfielder(String name) {
         super(name);
     }

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Attacker extends Soccer{
+public class Attacker extends SoccerPlayer{
     Attacker(String name){
         super(name);
     }

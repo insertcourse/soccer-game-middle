@@ -1,8 +1,8 @@
-public abstract class Soccer{
+public abstract class SoccerPlayer{
     private String name;
     private int score;
 
-    Soccer(String name){
+    SoccerPlayer(String name){
         this.name = name;
         this.score = 0;
     }

@@ -19,11 +19,11 @@ public class SoccerGameApplication {
 
         int count = 1;
 
-        Soccer[] soccers = new Soccer[] {attacker1, attacker2, midfielder1, midfielder2};
+        SoccerPlayer[] players = new SoccerPlayer[] {attacker1, attacker2, midfielder1, midfielder2};
 
         while(bool){
             System.out.printf("\n%d번째 슈팅결과", count);
-            printResult(soccers, keeper);
+            printResult(players, keeper);
             count++;
             bool = check(attacker1, attacker2, midfielder1, midfielder2, matchPoint);
         }
@@ -67,8 +67,8 @@ public class SoccerGameApplication {
         return true;
     }
 
-    static void printResult(Soccer[] soccers, Keeper keeper){
-        for (Soccer soccer : soccers){
+    static void printResult(SoccerPlayer[] players, Keeper keeper){
+        for (SoccerPlayer soccer : players){
             System.out.printf("\n%s: ", soccer.getName());
             soccer.shoot(keeper);
         }
