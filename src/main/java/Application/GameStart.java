@@ -9,7 +9,7 @@ public class GameStart {
         this.gameRound = new GameRound();
     }
 
-    public void playGame() {
+    public void gameStart() {
         while (isGameWhile) {
             isGameWhile = gameRound.playRound();
         }

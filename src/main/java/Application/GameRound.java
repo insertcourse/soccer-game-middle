@@ -33,11 +33,11 @@ public class GameRound {
 
     private void shootEachPlayer() {
         for (Player player : players) {
-            IsGoal(player);
+            isGoal(player);
         }
     }
 
-    private void IsGoal(Player player) {
+    private void isGoal(Player player) {
         boolean isGoal = Arrays.stream(player.shoot())
                 .anyMatch(goalkeeper.block()::contains);
         if (!isGoal) {
