@@ -1,14 +1,10 @@
 import java.util.Random;
 
-public class Keeper extends Soccer{
+public class Keeper {
+    private String name;
     private int keep_count = 3;
-    private boolean check = false;
     Keeper(String name){
-        super(name);
-    }
-
-    public boolean shoot(Keeper keeper){
-        return false;
+        this.name = name;
     }
 
     public boolean block(int shoot){
