@@ -12,7 +12,6 @@ public class GameRound {
     private final Goalkeeper goalkeeper;
     private final int matchScore;
     private int round;
-    private boolean isGameWhile = true;
 
     public GameRound() {
         GameInitialize gameInitialize = new GameInitialize();
@@ -21,23 +20,16 @@ public class GameRound {
         this.matchScore = gameInitialize.getMatchPoint();
     }
 
-    public void playGame() {
-        while (isGameWhile) {
-           playRound();
-        }
-    }
-
-    public void playRound(){
+    public boolean playRound(){
         nextRound();
         shootEachPlayer();
         presentRoundResult();
-        findWinner();
+        return findWinner();
     }
 
     public void nextRound(){
         round++;
     }
-
 
     private void shootEachPlayer() {
         for (Player player : players) {
@@ -53,17 +45,16 @@ public class GameRound {
         }
     }
 
-    private void findWinner() {
+    private boolean findWinner() {
         List<Player> winner = players.stream()
                 .filter(player -> player.getScore() > matchScore)
                 .collect(Collectors.toList());
 
         if (winner.size() > 0) {
             winner.forEach(GameRound::presentWinner);
-            isGameWhile = false;
+            return false;
         }
-
-
+        return true;
     }
 
     private void presentRoundResult() {

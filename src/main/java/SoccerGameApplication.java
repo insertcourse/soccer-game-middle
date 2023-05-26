@@ -1,10 +1,11 @@
 import Application.GameRound;
+import Application.GameStart;
 
 public class SoccerGameApplication {
 
     public static void main(String[] args) {
-        GameRound gameRound = new GameRound();
-        gameRound.playGame();
+        GameStart gameStart = new GameStart();
+        gameStart.playGame();
 
     }
 
