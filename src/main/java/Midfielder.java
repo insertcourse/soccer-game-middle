@@ -5,7 +5,7 @@ public class Midfielder extends SoccerPlayer {
         super(name);
     }
 
-    public boolean shoot(Keeper keeper) {
+    public void shoot(Keeper keeper) {
         Random random = new Random();
 
         int shoot = random.nextInt(11);
@@ -17,7 +17,5 @@ public class Midfielder extends SoccerPlayer {
         }
 
         print(getScore());
-
-        return true;
     }
 }

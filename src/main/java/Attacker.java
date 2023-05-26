@@ -6,7 +6,7 @@ public class Attacker extends SoccerPlayer{
     }
 
     @Override
-    public boolean shoot(Keeper keeper){
+    public void shoot(Keeper keeper){
         Random random = new Random();
 
         int shoot1 = random.nextInt(11);
@@ -17,7 +17,5 @@ public class Attacker extends SoccerPlayer{
         }
 
         print(getScore());
-
-        return true;
     }
 }

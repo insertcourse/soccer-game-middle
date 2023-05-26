@@ -14,7 +14,7 @@ public abstract class SoccerPlayer{
         this.score += 1;
     }
 
-    abstract boolean shoot(Keeper keeper);
+    abstract void shoot(Keeper keeper);
 
     public int getScore() { return score; }
 
