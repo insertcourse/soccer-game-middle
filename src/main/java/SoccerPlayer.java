@@ -18,10 +18,11 @@ public abstract class SoccerPlayer{
 
     public int getScore() { return score; }
 
-    public void print(int score){
+    public void printScore(){
         for(int i = 0; i < score; i++){
             System.out.print("-");
         }
     }
+
 
 }
