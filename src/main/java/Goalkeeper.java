@@ -15,11 +15,15 @@ public class Goalkeeper extends Player {
 
     public boolean block(int shoot) {
         int keeperBlock = random.nextInt(5) + 3;
-        if(shoot >= 3 && shoot <= 7 && chance > 0) {
-            chance --;
-            return keeperBlock != shoot;
+        if(chance > 0) {
+            return check(shoot,keeperBlock);
         }
-        if(shoot <  2 || shoot > 8 ) {
+        return true;
+    }
+
+    public boolean check(int shoot,int keeperBlock) {
+        if(shoot == keeperBlock || shoot < 2 || shoot > 8) {
+            chance --;
             return false;
         }
         return true;
