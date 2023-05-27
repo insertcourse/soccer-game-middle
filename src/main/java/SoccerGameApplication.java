@@ -9,49 +9,57 @@ public class SoccerGameApplication {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        List<Player> players = new ArrayList<>();
         List<String> attackers = getPlayers(scanner,"공격수");
         List<String> midfielders = getPlayers(scanner,"미드필더");
         List<String> goalkeepers = getPlayers(scanner,"골키퍼");
         int matchPoint = getMatchPoint(scanner);
 
-        Attacker attacker1 = new Attacker(attackers.get(0));
-        Attacker attacker2 = new Attacker(attackers.get(1));
-        Midfielder midfielder1 = new Midfielder(midfielders.get(0));
-        Midfielder midfielder2 = new Midfielder(midfielders.get(1));
-        Goalkeeper goalkeeper = new Goalkeeper(goalkeepers.get(0));
+        for(String attacker : attackers) {
+            players.add(new Attacker(attacker));
+        }
 
-        shootResult(attacker1,attacker2,midfielder1,midfielder2,goalkeeper,matchPoint);
+        for(String midfielder : midfielders) {
+            players.add(new Midfielder(midfielder));
+        }
+
+        players.add(new Goalkeeper(goalkeepers.get(0)));
+        shootResult(players,matchPoint);
     }
 
-    public static void shootResult(Attacker attacker1,Attacker attacker2,Midfielder midfielder1,Midfielder midfielder2,Goalkeeper goalkeeper, int matchPoint) {
+    public static void shootResult(List<Player> players, int matchPoint) {
         int count = 1;
         boolean isPlayingGame = true;
 
         while(isPlayingGame) {
             System.out.println(count + "번째 슈팅 결과");
-            printResult(attacker1,goalkeeper);
-            printResult(attacker2,goalkeeper);
-            printResult(midfielder1,goalkeeper);
-            printResult(midfielder2,goalkeeper);
+            printResult(players);
             System.out.println();
-
-            isPlayingGame = CheckMatchPoint(attacker1,matchPoint) &&
-                    CheckMatchPoint(attacker2,matchPoint) &&
-                    CheckMatchPoint(midfielder1,matchPoint) &&
-                    CheckMatchPoint(midfielder2,matchPoint);
+            isPlayingGame = CheckMatchPoint(players,matchPoint);
             count ++;
         }
     }
 
-    public static void printResult(Player players,Goalkeeper goalkeeper) {
-        players.shoot(goalkeeper);
-        System.out.println(players.getName() + ": " + "—".repeat(players.getScore()));
-
+    public static void printResult(List<Player> players) {
+        int index = 0;
+        Goalkeeper goalkeeper = (Goalkeeper) players.get(4);
+        players.remove(4); // 슈팅결과 골키퍼 출력 방지
+        for(Player player : players) {
+            player.shoot(goalkeeper);
+            System.out.println(player.getName() + ": " + "—".repeat(player.getScore()));
+        }
+        players.add(goalkeeper);
     }
 
-    public static boolean CheckMatchPoint(Player player, int matchPoint) {
-        if(player.getScore() == matchPoint) {
-            System.out.println("\n\n승리자는 " + player.getName() + " 입니다.");
+    public static boolean CheckMatchPoint(List<Player> players, int matchPoint) {
+        List<Integer> scores = new ArrayList<>();
+        int winnerIndex = 0;
+        for(Player player : players) {
+            scores.add(player.getScore());
+        }
+        winnerIndex = scores.indexOf(matchPoint);
+        if(winnerIndex != -1) {
+            System.out.println("\n\n승리자는 " + players.get(winnerIndex).getName() + " 입니다.");
             return false;
         }
         return true;
