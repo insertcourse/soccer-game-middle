@@ -16,6 +16,6 @@ public class Midfielder extends SoccerPlayer {
             goal();
         }
 
-        print(getScore());
+        printScore();
     }
 }

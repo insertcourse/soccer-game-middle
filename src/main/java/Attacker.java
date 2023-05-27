@@ -16,6 +16,6 @@ public class Attacker extends SoccerPlayer{
             goal();
         }
 
-        print(getScore());
+        printScore();
     }
 }
