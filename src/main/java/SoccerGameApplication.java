@@ -1,41 +1,56 @@
 import javax.accessibility.AccessibleTable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class SoccerGameApplication {
     public static void main(String[] args) {
-        String[] names = inputNames("공격수");
-        Attacker attacker1 = new Attacker(names[0]);
-        Attacker attacker2 = new Attacker(names[1]);
+        List<String> names = inputNames("공격수");
+        Attacker attacker1 = new Attacker(names.get(0));
+        Attacker attacker2 = new Attacker(names.get(1));
 
         names = inputNames("미드필더");
-        Midfielder midfielder1 = new Midfielder(names[0]);
-        Midfielder midfielder2 = new Midfielder(names[1]);
+        Midfielder midfielder1 = new Midfielder(names.get(0));
+        Midfielder midfielder2 = new Midfielder(names.get(1));
 
         names = inputNames("골키퍼");
-        Keeper keeper = new Keeper(names[0]);
+        Keeper keeper = new Keeper(names.get(0));
 
         int matchPoint = inputMatchPoint();
-        boolean bool = true;
+        boolean isNotGameDone = true;
 
         int count = 1;
 
-        SoccerPlayer[] players = new SoccerPlayer[] {attacker1, attacker2, midfielder1, midfielder2};
+        List<SoccerPlayer> players = new ArrayList<SoccerPlayer>();
+        players.add(attacker1);
+        players.add(attacker2);
+        players.add(midfielder1);
+        players.add(midfielder2);
 
-        while(bool){
+        while(isNotGameDone){
             System.out.printf("\n%d번째 슈팅결과", count);
             printResult(players, keeper);
             count++;
-            bool = check(attacker1, attacker2, midfielder1, midfielder2, matchPoint);
+            isNotGameDone = check(attacker1, matchPoint) && check(attacker2, matchPoint)
+                    && check(midfielder1, matchPoint) && check(midfielder2, matchPoint);
         }
 
     }
 
-    static String[] inputNames(String position){
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("%s의 이름을 입력하세요 : ", position);
-        String[] names = sc.nextLine().split(", ");
+    static void printResult(List<SoccerPlayer> players, Keeper keeper){
+        for (SoccerPlayer soccer : players){
+            System.out.printf("\n%s: ", soccer.getName());
+            soccer.shoot(keeper);
+        }
+    }
 
-        return names;
+    static boolean check(SoccerPlayer players ,int matchPoint){
+        if (players.getScore() == matchPoint){
+            System.out.printf("\n\n승리자는 %s 입니다.", players.getName());
+            return false;
+        }
+        return true;
     }
 
     static int inputMatchPoint(){
@@ -47,31 +62,12 @@ public class SoccerGameApplication {
         return matchPoint;
     }
 
-    static boolean check(Attacker attacker1, Attacker attacker2, Midfielder midfielder1, Midfielder midfielder2 ,int matchPoint){
-        if (attacker1.getScore() == matchPoint){
-            System.out.printf("\n\n승리자는 %s 입니다.", attacker1.getName());
-            return false;
-        }
-        if (attacker2.getScore() == matchPoint){
-            System.out.printf("\n\n승리자는 %s 입니다.", attacker2.getName());
-            return false;
-        }
-        if (midfielder1.getScore() == matchPoint){
-            System.out.printf("\n\n승리자는 %s 입니다.", midfielder1.getName());
-            return false;
-        }
-        if (midfielder2.getScore() == matchPoint){
-            System.out.printf("\n\n승리자는 %s 입니다.", midfielder2.getName());
-            return false;
-        }
-        return true;
-    }
+    static List<String> inputNames(String position){
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("%s의 이름을 입력하세요 : ", position);
+        List<String> names = Arrays.asList(sc.nextLine().split(", "));
 
-    static void printResult(SoccerPlayer[] players, Keeper keeper){
-        for (SoccerPlayer soccer : players){
-            System.out.printf("\n%s: ", soccer.getName());
-            soccer.shoot(keeper);
-        }
+        return names;
     }
 
 }
