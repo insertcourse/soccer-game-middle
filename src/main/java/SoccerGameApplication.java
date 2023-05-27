@@ -1,4 +1,3 @@
-import javax.accessibility.AccessibleTable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +31,9 @@ public class SoccerGameApplication {
             System.out.printf("\n%d번째 슈팅결과", count);
             printResult(players, keeper);
             count++;
-            isNotGameDone = check(attacker1, matchPoint) && check(attacker2, matchPoint)
-                    && check(midfielder1, matchPoint) && check(midfielder2, matchPoint);
+            isNotGameDone = players.stream()
+                    .allMatch(player -> check(player, matchPoint));
+            keeper.setCount();
         }
 
     }
@@ -45,9 +45,9 @@ public class SoccerGameApplication {
         }
     }
 
-    static boolean check(SoccerPlayer players ,int matchPoint){
-        if (players.getScore() == matchPoint){
-            System.out.printf("\n\n승리자는 %s 입니다.", players.getName());
+    static boolean check(SoccerPlayer player , int matchPoint){
+        if (player.getScore() == matchPoint){
+            System.out.printf("\n\n승리자는 %s 입니다.", player.getName());
             return false;
         }
         return true;
@@ -57,9 +57,7 @@ public class SoccerGameApplication {
         Scanner sc = new Scanner(System.in);
         System.out.print("매치포인트를 입력하세요 : ");
 
-        int matchPoint = sc.nextInt();
-
-        return matchPoint;
+        return sc.nextInt();
     }
 
     static List<String> inputNames(String position){
