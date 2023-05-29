@@ -115,8 +115,8 @@ chore (maintain)
 5. 코드리뷰 후 개선한다.
 
 ### 기능 구현 목록
-- [x] Player 추상 클래스 구현
-- [x] Attacker 클래스 구현 
-- [x] Midfielder 클래스 구현 
-- [x] Goalkeeper 클래스 구현
+- [x] player.Player 추상 클래스 구현
+- [x] player.Attacker 클래스 구현 
+- [x] player.Midfielder 클래스 구현 
+- [x] player.Goalkeeper 클래스 구현
 - [x] 승자 판단 로직 구현

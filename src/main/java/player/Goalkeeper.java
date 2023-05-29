@@ -1,4 +1,5 @@
-import javax.management.relation.RelationNotification;
+package player;
+
 import java.util.Random;
 
 public class Goalkeeper extends Player {
